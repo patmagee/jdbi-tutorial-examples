@@ -1,0 +1,50 @@
+html, body {
+  height: 100%;
+}
+
+p {
+  max-width: 420px;
+}
+
+/** Colors from design to be used to override/fit the color scheme
+  - black = #000000
+  - grey-dark = #5e5e5e
+  - grey = #b5b0b0
+  - grey-lightest = #f7f5f8
+
+  - blue = #0076ba
+*/
+.text-black {
+  color: #000000;
+}
+.text-grey-darker {
+  color: #5e5e5e;
+}
+.text-grey {
+  color: #b5b0b0;
+}
+.border-grey {
+  border-color: #b5b0b0;
+}
+.bg-grey-lightest {
+  background-color: #f7f5f8;
+}
+.bg-blue {
+  background-color: #0076ba;
+}
+
+.or-content:before {
+  content: "OR";
+  position: absolute;
+  top: -10px;
+  padding: 0 10px;
+  left: calc(50% - 21px);
+  color: #b5b0b0;
+  background-color: #fff;
+}
+
+@media (min-width: 576px) {
+  .modal-dialog {
+    max-width: 100%;
+  }
+}

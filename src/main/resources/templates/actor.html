@@ -1,0 +1,130 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Styles -->
+  <!-- <link href="/public/styles/bootstrap-modal.css" rel="stylesheet"> -->
+  <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+
+  <link href="/public/styles/app.css" rel="stylesheet">
+
+  <title>IMDB SRSLY</title>
+</head>
+<body class="font-sans">
+<div th:replace="fragments/header :: header"></div>
+
+<div class="border border-l-0 border-r-0 border-grey bg-grey-lightest">
+  <div class="container mx-auto">
+    <ul class="list-reset flex">
+      <li class="mr-6 py-4 border-b-2 border-transparent">
+        <a href="/movies" class="font-bold text-black no-underline">Movies</a>
+      </li>
+      <li class="mr-6 py-4 border-b-2 border-transparent">
+        <a href="/actors" class="font-bold text-black no-underline">Actors</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="container mx-auto flex justify-center py-8">
+  <div class="w-1/2">
+    <h1 class="text-4xl font-hairline text-center" th:text="${actor.firstName + ' ' + actor.lastName}"></h1>
+    <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col">
+      <form id="update-movie" th:action="@{/actors/{id}(id=${actor.id})}" th:object="${actor}" method="post">
+        <div class="mb-4">
+          <label class="block text-grey-darker font-bold ">
+            First Name
+          </label>
+          <input
+              class="block appearance-none border-2 border-gray-ligh rounded w-full py-2 px-4 text-grey-darker bg-white"
+              type="text" th:field="*{firstName}">
+        </div>
+        <div class="mb-4">
+          <label class="block text-grey-darker font-bold ">
+            Last Name
+          </label>
+          <input
+              class="block appearance-none border-2 border-gray-ligh rounded w-full py-2 px-4 text-grey-darker bg-white"
+              type="text" th:field="*{lastName}">
+        </div>
+        <div class="mb-4">
+          <label class="block text-grey-darker font-bold " for="inline-release-date">
+            Date of Birth
+          </label>
+          <input
+              class="block appearance-none border-2 border-gray-ligh rounded w-full py-2 px-4 text-grey-darker bg-white"
+              id="inline-release-date" type="date" th:field="*{dob}">
+        </div>
+        <div class="mb-4">
+          <label class="block text-grey-darker font-bold">
+            Movies
+          </label>
+          <table class="pt-6 table-fixed w-full border-collapse">
+            <tbody>
+            <tr class="hover:bg-grey-light" th:each="movie: ${actor.movies}">
+              <a th:href="${'/movies/' + movie.id}" th:text="${movie.name}"></a>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="flex items-center justify-center">
+          <button form="update-movie" class="shadow bg-blue text-white rounded py-2 px-6 m-2" value="Submit" type="submit">
+            Save
+          </button>
+          <button id="delete-actor" class="shadow bg-red-600 text-white rounded py-2 px-6 m-2" type="button" th:attr="data-id=${actor.id}">
+            Delete
+          </button>
+        </div>
+      </form>
+    </div>
+    <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col">
+      <form id="add-movie" th:action="@{/actors/{id}/addmovie(id=${actor.id})}" method="post">
+        <div class="mb-4">
+          <label class="block text-grey-darker font-bold " for="inline-release-date">
+            Id or Name of Movie to Add
+          </label>
+          <input
+              class="block appearance-none border-2 border-gray-ligh rounded w-full py-2 px-4 text-grey-darker bg-white"
+              id="movie-name-or-id" type="text" name="idOrName">
+        </div>
+        <div class="flex items-center justify-between">
+          <button form="add-movie" class="shadow bg-blue text-white rounded py-2 px-6" value="Submit" type="submit">
+            Save
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+</div>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+<script>
+  $('#delete-actor').click(function () {
+    var id = $(this).data('id');
+    deleteActor(id);
+  });
+
+  function deleteActor(id) {
+    $.ajax({
+      url: '/api/actors/' + id,
+      type: 'DELETE'
+    }).always(function () {
+      window.location = "/actors";
+    });
+  }
+</script>
+</body>
+</html>

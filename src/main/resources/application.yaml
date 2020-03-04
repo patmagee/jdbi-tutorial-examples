@@ -1,0 +1,5 @@
+spring:
+  datasource:
+    username: jdbiexample
+    password: ""
+    url: jdbc:postgresql://localhost/jdbiexample

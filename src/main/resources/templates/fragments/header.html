@@ -1,0 +1,30 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<body>
+<div class="container mx-auto" th:fragment="header">
+  <nav class="flex justify-between items-center py-8">
+    <a href="#" class="align-middle font-bold text-black no-underline">
+      <img src="/public/film.svg" alt="" class="align-middle mr-2" width="50">
+      <span>This is Totally IMDB, SRSLY</span>
+    </a>
+
+    <button type="button" class="navbar-toggler"
+            data-toggle="collapse" data-target="#mainNavigation"
+            aria-controls="mainNavigation" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="mainNavigation">
+      <ul class="ml-auto list-reset flex">
+        <li class="mr-6">
+          <a href="/movies" class="text-black no-underline">Movies</a>
+        </li>
+        <li>
+          <a href="/actors" class="text-black no-underline">Actors</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</div>
+</body>
+</html>

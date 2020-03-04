@@ -1,0 +1,97 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: Patrick Magee
+      changes:
+        - createTable:
+            tableName: movies
+            columns:
+              - column:
+                  name: id
+                  type: varchar
+                  constraints:
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar
+              - column:
+                  name: release_date
+                  type: date
+              - addPrimaryKey:
+                  constraintName: pk_movies
+                  tableName: movies
+                  columnNames: ["id"]
+        - createTable:
+            tableName: actors
+            columns:
+              - column:
+                  name: id
+                  type: varchar
+                  constraints:
+                    nullable: false
+              - column:
+                  name: first_name
+                  type: varchar
+              - column:
+                  name: last_name
+                  type: varchar
+              - column:
+                  name: dob
+                  type: date
+              - addPrimaryKey:
+                  constraintName: pk_actors
+                  tableName: actors
+                  columnNames: ["id"]
+        - createTable:
+            tableName: movies_actors_joint_table
+            columns:
+              - column:
+                  name: movie_id
+                  type: varchar
+                  constraints:
+                    nullable: false
+              - column:
+                  name: actor_id
+                  type: varchar
+                  constraints:
+                    nullable: false
+              - addUniqueConstraint:
+                  columnNames: movie_id, actor_id
+                  constraintName: unique_movie_actor
+  - changeSet:
+      id: 2
+      author: Patrick Magee
+      changes:
+        - createTable:
+            tableName: movie_reviews
+            columns:
+              - column:
+                  name: id
+                  type: varchar
+                  constraints:
+                    nullable: false
+              - column:
+                  name: submitted_by
+                  type: varchar
+              - column:
+                  name: movie_id
+                  type: varchar
+                  constraints:
+                    nullable: false
+              - column:
+                  name: submitted
+                  type: timestamp
+              - column:
+                  name: content
+                  type: text
+              - addPrimaryKey:
+                  constraintName: pk_movie_reviews
+                  tableName: movie_reviews
+                  columnNames: id
+              - addForeignKeyConstraint:
+                  constraintName: fk_movie_review_movie
+                  baseTableName: movie_reviews
+                  baseColumnName: movie_id
+                  referencedTableName: movies
+                  referencedColumnName: id
+
