@@ -36,7 +36,7 @@ public interface MovieLibraryDao {
     List<Movie> listMovies();
 
 
-    @SqlQuery("SELECT m.* FROM movies m WHERE name = :name")
+    @SqlQuery("SELECT m.id m_id, m.name m_name, m.release_date m_release_date FROM movies m WHERE name = :name")
     Movie findMovieByName(@Bind("name") String name);
 
 

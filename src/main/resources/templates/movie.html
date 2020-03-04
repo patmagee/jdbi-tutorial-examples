@@ -56,7 +56,8 @@
           <table class="pt-6 table-fixed w-full border-collapse">
             <tbody>
             <tr class="hover:bg-grey-light" th:each="actor: ${movie.actors}">
-              <a th:href="${'/actors/' + actor.id}" th:text="${actor.firstName + ' ' + actor.lastName}"></a>
+              <td>
+                <a th:href="${'/actors/' + actor.id}" th:text="${actor.firstName + ' ' + actor.lastName}"></a>
               </td>
             </tr>
             </tbody>
