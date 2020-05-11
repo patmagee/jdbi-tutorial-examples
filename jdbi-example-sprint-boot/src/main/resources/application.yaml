@@ -1,0 +1,6 @@
+spring:
+  datasource:
+    username: jdbi-example-spring-boot
+    password: ""
+    url: jdbc:postgresql://localhost/jdbi-example-spring-boot
+    driver-class-name: org.postgresql.Driver
